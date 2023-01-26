@@ -1,6 +1,6 @@
-# GLFW IMGUI Backend
+# `glfw` + `imgui` Backend in Go
 
-This package is intended for those using GLFW and imgui with Go. It is meant to bridge the gap between `go-gl/glfw` and `imgui-go`. This means you can retain control over your `glfw.Window` object without handing over control to `imgui`. I found this file in an old commit from `go-gl`. Helpful for those building applications with OpenGL in Go.
+This package is intended for those using GLFW and imgui with Go. It is meant to bridge the gap between `go-gl/glfw` and `imgui-go`. This means you can retain control over your `glfw.Window` object without handing over control to imgui. I found this file in an old commit from `go-gl`. Helpful for those building applications with OpenGL in Go.
 
 ![](/doc/screenshot.png)
 
