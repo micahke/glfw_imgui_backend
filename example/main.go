@@ -15,6 +15,7 @@ func init() {
 
 func main() {
 
+
 	// Initialize GLFW through go-gl/glfw
 	if err := glfw.Init(); err != nil {
 		panic("Error initializing GLFW")
@@ -44,8 +45,10 @@ func main() {
 	context := imgui.CreateContext(nil)
 	defer context.Destroy()
 
+  io := imgui.CurrentIO()
+
 	// KEY: link imgui context with GLFW window context
-	impl := backend.ImguiGlfw3Init(window)
+	impl := backend.ImguiGlfw3Init(window, io)
 	defer impl.Shutdown()
 
 	showDemoWindow := false
