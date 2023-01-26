@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/AllenDang/imgui-go"
 	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/go-gl/glfw/v3.3/glfw"
-	"github.com/inkyblackness/imgui-go"
 	backend "github.com/micahke/glfw_imgui_backend"
 	"runtime"
 )
@@ -14,7 +14,6 @@ func init() {
 }
 
 func main() {
-
 
 	// Initialize GLFW through go-gl/glfw
 	if err := glfw.Init(); err != nil {
@@ -45,7 +44,7 @@ func main() {
 	context := imgui.CreateContext(nil)
 	defer context.Destroy()
 
-  io := imgui.CurrentIO()
+	io := imgui.CurrentIO()
 
 	// KEY: link imgui context with GLFW window context
 	impl := backend.ImguiGlfw3Init(window, io)
@@ -56,11 +55,11 @@ func main() {
 	counter := 0
 
 	for !window.ShouldClose() {
+		glfw.PollEvents()
 		impl.NewFrame()
 
 		{
 			imgui.Text("Hello, world!")
-
 			imgui.Checkbox("Demo Window", &showDemoWindow)
 			imgui.Checkbox("Another Window", &showAnotherWindow)
 
@@ -90,7 +89,6 @@ func main() {
 		imgui.Render()
 		impl.Render(imgui.RenderedDrawData())
 		window.SwapBuffers()
-		glfw.PollEvents()
 
 	}
 
