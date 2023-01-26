@@ -1,11 +1,11 @@
 package glfw_imgui_backend
 
 import (
-	"math"
-	"unsafe"
+	"github.com/AllenDang/imgui-go"
 	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/go-gl/glfw/v3.3/glfw"
-	"github.com/inkyblackness/imgui-go"
+	"math"
+	"unsafe"
 )
 
 type imguiGlfw3 struct {
