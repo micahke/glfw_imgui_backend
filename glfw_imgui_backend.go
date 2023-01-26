@@ -27,13 +27,12 @@ type imguiGlfw3 struct {
 	elementsHandle         uint32
 }
 
-func ImguiGlfw3Init(window *glfw.Window) *imguiGlfw3 {
+func ImguiGlfw3Init(window *glfw.Window, io imgui.IO) *imguiGlfw3 {
 	impl := &imguiGlfw3{
 		window:      window,
 		glslVersion: "#version 150",
 	}
 
-	io := imgui.CurrentIO()
 	// Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
 	io.KeyMap(int(imgui.KeyTab), int(glfw.KeyTab))
 	io.KeyMap(int(imgui.KeyLeftArrow), int(glfw.KeyLeft))
