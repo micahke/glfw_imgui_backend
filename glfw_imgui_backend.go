@@ -27,8 +27,8 @@ type ImguiGlfw3 struct {
 	elementsHandle         uint32
 }
 
-func ImguiGlfw3Init(window *glfw.Window, io imgui.IO) *imguiGlfw3 {
-	impl := &imguiGlfw3{
+func ImguiGlfw3Init(window *glfw.Window, io imgui.IO) *ImguiGlfw3 {
+	impl := &ImguiGlfw3{
 		window:      window,
 		glslVersion: "#version 150",
 	}
@@ -61,7 +61,7 @@ func ImguiGlfw3Init(window *glfw.Window, io imgui.IO) *imguiGlfw3 {
 	return impl
 }
 
-func (impl *imguiGlfw3) NewFrame() {
+func (impl *ImguiGlfw3) NewFrame() {
 	if impl.fontTexture == 0 {
 		impl.createDeviceObjects()
 	}
@@ -95,7 +95,7 @@ func (impl *imguiGlfw3) NewFrame() {
 	imgui.NewFrame()
 }
 
-func (impl *imguiGlfw3) createDeviceObjects() {
+func (impl *ImguiGlfw3) createDeviceObjects() {
 	// Backup GL state
 	var lastTexture int32
 	var lastArrayBuffer int32
@@ -164,7 +164,7 @@ void main()
 	gl.BindVertexArray(uint32(lastVertexArray))
 }
 
-func (impl *imguiGlfw3) createFontsTexture() {
+func (impl *ImguiGlfw3) createFontsTexture() {
 	// Build texture atlas
 	io := imgui.CurrentIO()
 	image := io.Fonts().TextureDataAlpha8()
@@ -187,7 +187,7 @@ func (impl *imguiGlfw3) createFontsTexture() {
 	gl.BindTexture(gl.TEXTURE_2D, uint32(lastTexture))
 }
 
-func (impl *imguiGlfw3) Render(drawData imgui.DrawData) {
+func (impl *ImguiGlfw3) Render(drawData imgui.DrawData) {
 	// Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
 	displayWidth, displayHeight := impl.window.GetSize()
 	fbWidth, fbHeight := impl.window.GetFramebufferSize()
@@ -340,11 +340,11 @@ func (impl *imguiGlfw3) Render(drawData imgui.DrawData) {
 	gl.Scissor(lastScissorBox[0], lastScissorBox[1], lastScissorBox[2], lastScissorBox[3])
 }
 
-func (impl *imguiGlfw3) Shutdown() {
+func (impl *ImguiGlfw3) Shutdown() {
 	impl.invalidateDeviceObjects()
 }
 
-func (impl *imguiGlfw3) invalidateDeviceObjects() {
+func (impl *ImguiGlfw3) invalidateDeviceObjects() {
 	if impl.vboHandle != 0 {
 		gl.DeleteBuffers(1, &impl.vboHandle)
 	}
@@ -382,7 +382,7 @@ func (impl *imguiGlfw3) invalidateDeviceObjects() {
 	}
 }
 
-func (impl *imguiGlfw3) installCallbacks() {
+func (impl *ImguiGlfw3) installCallbacks() {
 	impl.window.SetMouseButtonCallback(impl.mouseButtonChange)
 	impl.window.SetScrollCallback(impl.mouseScrollChange)
 	impl.window.SetKeyCallback(impl.keyChange)
@@ -401,7 +401,7 @@ var buttonIDByIndex = map[int]glfw.MouseButton{
 	2: glfw.MouseButton3,
 }
 
-func (impl *imguiGlfw3) mouseButtonChange(window *glfw.Window, rawButton glfw.MouseButton, action glfw.Action, mods glfw.ModifierKey) {
+func (impl *ImguiGlfw3) mouseButtonChange(window *glfw.Window, rawButton glfw.MouseButton, action glfw.Action, mods glfw.ModifierKey) {
 	buttonIndex, known := buttonIndexByID[rawButton]
 
 	if known && (action == glfw.Press) {
@@ -409,12 +409,12 @@ func (impl *imguiGlfw3) mouseButtonChange(window *glfw.Window, rawButton glfw.Mo
 	}
 }
 
-func (impl *imguiGlfw3) mouseScrollChange(window *glfw.Window, x, y float64) {
+func (impl *ImguiGlfw3) mouseScrollChange(window *glfw.Window, x, y float64) {
 	io := imgui.CurrentIO()
 	io.AddMouseWheelDelta(float32(x), float32(y))
 }
 
-func (impl *imguiGlfw3) keyChange(window *glfw.Window, key glfw.Key, scancode int, action glfw.Action, mods glfw.ModifierKey) {
+func (impl *ImguiGlfw3) keyChange(window *glfw.Window, key glfw.Key, scancode int, action glfw.Action, mods glfw.ModifierKey) {
 	io := imgui.CurrentIO()
 	if action == glfw.Press {
 		io.KeyPress(int(key))
@@ -430,7 +430,7 @@ func (impl *imguiGlfw3) keyChange(window *glfw.Window, key glfw.Key, scancode in
 	io.KeySuper(int(glfw.KeyLeftSuper), int(glfw.KeyRightSuper))
 }
 
-func (impl *imguiGlfw3) charChange(window *glfw.Window, char rune) {
+func (impl *ImguiGlfw3) charChange(window *glfw.Window, char rune) {
 	io := imgui.CurrentIO()
 	io.AddInputCharacters(string(char))
 }
