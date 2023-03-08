@@ -8,7 +8,7 @@ import (
 	"unsafe"
 )
 
-type imguiGlfw3 struct {
+type ImguiGlfw3 struct {
 	window           *glfw.Window
 	time             float64
 	mouseJustPressed [3]bool
