@@ -45,6 +45,7 @@ func main() {
 	defer context.Destroy()
 
 	io := imgui.CurrentIO()
+  // io.AddFocusEvent(false)
 
 	// KEY: link imgui context with GLFW window context
 	impl := backend.ImguiGlfw3Init(window, io)
@@ -54,14 +55,25 @@ func main() {
 	showAnotherWindow := false
 	counter := 0
 
+  text := "Hello, world!"
+  window.SetKeyCallback(KeyCallback)
+
 	for !window.ShouldClose() {
 		glfw.PollEvents()
 		impl.NewFrame()
+
+    if imgui.CurrentIO().WantTextInput() {
+      impl.SetDefaultKeyCallback()
+    } else {
+      window.SetKeyCallback(KeyCallback)
+    }
 
 		{
 			imgui.Text("Hello, world!")
 			imgui.Checkbox("Demo Window", &showDemoWindow)
 			imgui.Checkbox("Another Window", &showAnotherWindow)
+      
+      imgui.InputText("Some text", &text)
 
 			if imgui.Button("Button") {
 				counter++
@@ -91,5 +103,14 @@ func main() {
 		window.SwapBuffers()
 
 	}
+
+}
+
+
+func KeyCallback(w *glfw.Window, key glfw.Key, scancode int, action glfw.Action, mods glfw.ModifierKey) {
+
+
+  
+
 
 }

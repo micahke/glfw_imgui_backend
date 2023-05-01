@@ -389,6 +389,11 @@ func (impl *ImguiGlfw3) installCallbacks() {
 	impl.window.SetCharCallback(impl.charChange)
 }
 
+// Sets the key callback to imgui's default
+func (impl *ImguiGlfw3) SetDefaultKeyCallback() {
+  impl.window.SetKeyCallback(impl.keyChange)
+}
+
 var buttonIndexByID = map[glfw.MouseButton]int{
 	glfw.MouseButton1: 0,
 	glfw.MouseButton2: 1,
