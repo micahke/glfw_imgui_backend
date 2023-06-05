@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/AllenDang/imgui-go"
+	"github.com/micahke/imgui-go"
 	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/go-gl/glfw/v3.3/glfw"
 	backend "github.com/micahke/glfw_imgui_backend"
